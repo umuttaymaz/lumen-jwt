@@ -4,7 +4,7 @@ If you want to Lumen + Dingo + JWT for your current application, please check [h
 
 ## What's Added
 
-- [Lumen 5.3](https://github.com/laravel/lumen/tree/v5.3.0).
+- [Lumen 5.4](https://github.com/laravel/lumen/tree/v5.4.0).
 - [JWT Auth](https://github.com/tymondesigns/jwt-auth) for Lumen Application. <sup>[1]</sup>
 - [Dingo](https://github.com/dingo/api) to easily and quickly build your own API. <sup>[1]</sup>
 - [Lumen Generator](https://github.com/flipboxstudio/lumen-generator) to make development even easier and faster.
@@ -101,9 +101,9 @@ Response:
 +--------+----------------------+---------------------+------------------------------------------+------------------+------------+
 ```
 
-## Future
+## ETC
 
-I will make a standalone package that would works on your current project.
+I made a Postman collection [here](https://www.getpostman.com/collections/1090b93eaa1ece4b09f2).
 
 ## License
 

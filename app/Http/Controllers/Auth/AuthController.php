@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exception\HttpResponseException;
 
 class AuthController extends Controller
@@ -22,9 +23,12 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         try {
-            $this->validatePostLoginRequest($request);
-        } catch (HttpResponseException $e) {
-            return $this->onBadRequest();
+            $this->validate($request, [
+                'email' => 'required|email|max:255',
+                'password' => 'required',
+            ]);
+        } catch (ValidationException $e) {
+            return $e->getResponse();
         }
 
         try {
@@ -41,33 +45,6 @@ class AuthController extends Controller
 
         // All good so return the token
         return $this->onAuthorized($token);
-    }
-
-    /**
-     * Validate authentication request.
-     *
-     * @param  Request $request
-     * @return void
-     * @throws HttpResponseException
-     */
-    protected function validatePostLoginRequest(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|max:255',
-            'password' => 'required',
-        ]);
-    }
-
-    /**
-     * What response should be returned on bad request.
-     *
-     * @return JsonResponse
-     */
-    protected function onBadRequest()
-    {
-        return new JsonResponse([
-            'message' => 'invalid_credentials'
-        ], Response::HTTP_BAD_REQUEST);
     }
 
     /**

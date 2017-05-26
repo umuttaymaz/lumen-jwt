@@ -16,23 +16,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Include The Compiled Class File
-|--------------------------------------------------------------------------
-|
-| To dramatically increase your application's performance, you may use a
-| compiled class file which contains all of the classes commonly used
-| by a request. The Artisan "optimize" is used to create this file.
-|
-*/
-
-$compiledPath = __DIR__.'/cache/compiled.php';
-
-if (file_exists($compiledPath)) {
-    require $compiledPath;
-}
-
-/*
-|--------------------------------------------------------------------------
 | Load your environment file
 |--------------------------------------------------------------------------
 |
@@ -42,6 +25,7 @@ if (file_exists($compiledPath)) {
 try {
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
 } catch (Dotenv\Exception\InvalidPathException $e) {
+    //
 }
 
 /*
@@ -62,7 +46,6 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 
 $app->withEloquent();
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -96,12 +79,12 @@ $app->singleton(
 */
 
 $app->middleware([
-   App\Http\Middleware\CORSMiddleware::class
+    App\Http\Middleware\CORSMiddleware::class
 ]);
 
-$app->routeMiddleware([
-    // 'auth' => App\Http\Middleware\Authenticate::class,
-]);
+//$app->routeMiddleware([
+//     'auth' => App\Http\Middleware\Authenticate::class,
+//]);
 
 /*
 |--------------------------------------------------------------------------
@@ -136,8 +119,8 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 |
 */
 
-$app->group(['namespace' => App\Http\Controllers::class], function ($app) {
-    require $app->basePath('/routes/api.php');
+$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
