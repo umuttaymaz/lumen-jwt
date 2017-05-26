@@ -66,7 +66,7 @@ class AuthController extends Controller
     protected function onBadRequest()
     {
         return new JsonResponse([
-            'message' => 'invalid_credentials'
+            'message' => 'bad_request'
         ], Response::HTTP_BAD_REQUEST);
     }
 
